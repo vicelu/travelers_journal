@@ -2,9 +2,15 @@
     "compilerOptions": {
       "target": "es6",
       "module": "esnext",
-      "rootDir": "./",
+      "rootDir": "./src",
       "outDir": "./build",
+      "moduleResolution": "node",
       "esModuleInterop": true,
-      "strict": true
-    }
+      "strict": true,
+      "sourceMap": true
+    },
+    "exclude": [
+      "server",
+      "node_modules"
+    ]
   }
