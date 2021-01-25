@@ -1,7 +1,6 @@
 import { HttpClient } from './http.client';
 import { User } from './user.model';
-import { BeenPlace } from './been-place.model';
-import { Place } from './place.model';
+import { PlaceCoord, BeenPlace, Place } from './place.model';
 
 export class DataService extends HttpClient {
     public constructor() {
@@ -12,7 +11,13 @@ export class DataService extends HttpClient {
       
     public getBeenPlaces = (user_id: number) => this.instance.get<BeenPlace[]>(`/been/${user_id}`);
 
-    public getPlace = (place_id: number) => this.instance.get<Place[]>(`/place/${place_id}`);
+    public addToBeenPlaces = (user_id: number, place_id: number) => this.instance.post<any[]>(`/been`, { user_id, place_id});
+
+    public getPlace = (place_id: number) => this.instance.get<any>(`/place/${place_id}`);
+
+    public getPlaceCoord = (place_id: number) => this.instance.get<PlaceCoord>(`/coord/${place_id}`);
 
     public getPlaces = () => this.instance.get<any[]>(`/places`);
+
+    public getCitiesOfCountry = (country: string) => this.instance.get<any[]>(`/cities/${country}`);
 }

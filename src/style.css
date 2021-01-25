@@ -1,7 +1,32 @@
+:root {
+  --blueish: rgb(161, 202, 205);
+  --whiteish: rgb(238, 232, 217);
+  --redish: rgb(194, 79, 74);
+}
+
 #map {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-  }
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+}
+
+#sidebar {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  bottom: 32px;
+  width: 20%;
+  border-radius: 8px;
+  background-color: var(--redish);
+  z-index: 1;
+}
+
+#functions {
+  width: calc(100% - 32px);
+  margin: 16px auto;
+  height: 20%;
+  background-color: var(--whiteish);
+  border-radius: 8px;
+}

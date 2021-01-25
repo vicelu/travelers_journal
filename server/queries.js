@@ -16,9 +16,33 @@ const getPlaces = (request, response) => {
 
 const getPlace = (request, response) => {
   const place_id = parseInt(request.params.place_id)
-  pool.query('SELECT name, ST_X(geom), ST_Y(geom) FROM world_cities where gid = $1;', [place_id], (error, results) => {
+  pool.query('SELECT * FROM world_cities where gid = $1;', [place_id], (error, results) => {
+    if (error) { throw error }
+    response.status(200).json(results.rows[0]);
+  });
+}
+
+const getCountryOfCity = (request, response) => { // TODO refine query to give back more info about country
+  const place_id = parseInt(request.params.place_id)
+  pool.query('SELECT country.gid, country.country FROM world_countries country, world_cities city WHERE st_intersects(country.geom, city.geom) AND city.gid = $1;',
+  [place_id], (error, results) => {
+    if (error) { throw error }
+    response.status(200).json(results.rows[0]);
+  });
+}
+
+const getCitiesOfCountry = (request, response) => {
+  pool.query(`SELECT gid, name FROM world_cities WHERE world_cities.country = '${request.params.country}';`, (error, results) => {
     if (error) { throw error }
     response.status(200).json(results.rows);
+  });
+}
+
+const getPlaceCoord = (request, response) => {
+  const place_id = parseInt(request.params.place_id)
+  pool.query('SELECT ST_X(geom), ST_Y(geom) FROM world_cities where gid = $1;', [place_id], (error, results) => {
+    if (error) { throw error }
+    response.status(200).json(results.rows[0]);
   });
 }
 
@@ -69,4 +93,15 @@ const getUsers = (request, response) => {
   });
 }
 
-module.exports = {getPlaces, getPlace, getBeen, deleteBeen, addBeen, getUsers, addUser, deleteUser};
+module.exports = {
+  getPlaces, 
+  getPlace, 
+  getPlaceCoord, 
+  getBeen, 
+  deleteBeen, 
+  addBeen, 
+  getUsers, 
+  addUser, 
+  deleteUser,
+  getCitiesOfCountry
+};
