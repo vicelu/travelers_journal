@@ -1,10 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 const cors = require('cors');
-import * as db from './queries';
+import { Queries } from './queries';
 
 const app = express();
 const PORT = 7080;
+
+const db = new Queries();
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -20,6 +22,8 @@ app.get('/coord/:place_id', db.getPlaceCoord);
 app.get('/place/:place_id', db.getPlace);
 app.get('/cities/:country', db.getCitiesOfCountry);
 app.get('/users', db.getUsers);
+app.get('/user/:user_id', db.getUser);
+app.post('/distance', db.getDistance);
 app.post('/user', db.addUser);
 app.delete('/user', db.deleteUser);
 

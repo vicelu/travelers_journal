@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap');
+
 :root {
   --blueish: rgb(161, 202, 205);
   --whiteish: rgb(238, 232, 217);
   --redish: rgb(194, 79, 74);
+  --mdc-theme-primary: rgb(161, 202, 205) !important;
+  --mdc-typography-font-family: 'PT Sans', sans-serif;
+}
+
+html {
+  font-family: var(--mdc-typography-font-family);
 }
 
 #map {
@@ -27,6 +35,20 @@
   width: calc(100% - 32px);
   margin: 16px auto;
   height: 20%;
-  background-color: var(--whiteish);
+  background-color: white;
   border-radius: 8px;
+}
+
+#functions h4 {
+  margin: 0;
+  padding: 8px
+}
+
+#mostVisitedCountry {
+  padding: 8px;
+}
+
+.function-element {
+  margin: 0 16px 16px 16px;
+  width: calc(100% - 32px);
 }

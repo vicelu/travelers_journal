@@ -1,6 +1,5 @@
 import mapboxgl from 'mapbox-gl';
 import {MDCSelect} from '@material/select';
-import {MDCMenu} from '@material/menu';
 import {MDCTextField} from '@material/textfield';
 import {MDCRipple} from '@material/ripple';
 import { DataService } from './lib/data.service';
@@ -17,7 +16,8 @@ const map = new mapboxgl.Map({
 let markers: any[] = [];
 let beenPlacesLocalData: Place[] = [];
 let selectedPlaceId: any = 1;
-const USER_ID = 1;
+const USER_ID = 7;
+let USER_HOME_CITY_ID: number;
 
 const dataService = new DataService();
 
@@ -28,6 +28,9 @@ const getPlaces = () => dataService.getPlaces();
 const getPlace = (place_id: number) => dataService.getPlace(place_id);
 
 const getPlaceCoord = (place_id: number) => dataService.getPlaceCoord(place_id);
+
+const getDistance = (origin_place_point: PlaceCoord, destination_place_point: PlaceCoord) =>
+    dataService.getDistance(origin_place_point, destination_place_point);
 
 const getBeenPlaces = (user_id: number) => dataService.getBeenPlaces(user_id);
 
@@ -120,7 +123,7 @@ const getCitiesOptions = () => {
 const addToVisitedPlaces = () => {
     if (selectedPlaceId !== undefined) {
         dataService.addToBeenPlaces(USER_ID, selectedPlaceId).then(console.log);
-        updateBeenPlaces();
+        setTimeout(() => updateBeenPlaces(), 500);
     }
 }
 
@@ -135,3 +138,22 @@ const addOption = (optionName: string, optionValue: number) =>
 <span class="mdc-list-item__ripple"></span>
 <span class="mdc-list-item__text">${optionName}</span>
 </li>`
+
+dataService.getUser(USER_ID).then(async (result) => {
+    const user = await result;
+    USER_HOME_CITY_ID = user.homeCityId;
+    getPlaceCoord(USER_HOME_CITY_ID).then(async (result) => {
+        const userHomeCityPlaceCoord: PlaceCoord = await result;
+        getDistanceToBeenCities(userHomeCityPlaceCoord);
+    });
+})
+
+const getDistanceToBeenCities = (userHomeCityPlaceCoord: PlaceCoord) => {
+    beenPlacesLocalData.forEach((place: Place) => {
+        getPlaceCoord(place.gid).then(async (result) => {
+            const beenPlaceCoord: PlaceCoord = await result;
+            getDistance(userHomeCityPlaceCoord, beenPlaceCoord).then(console.log);
+        });
+    });
+}
+
