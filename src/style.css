@@ -34,18 +34,14 @@ html {
 #functions {
   width: calc(100% - 32px);
   margin: 16px auto;
-  height: 20%;
+  height: 25%;
   background-color: white;
   border-radius: 8px;
 }
 
-#functions h4 {
-  margin: 0;
-  padding: 8px
-}
-
-#mostVisitedCountry {
-  padding: 8px;
+#mostVisitedCountry ,#totalDistanceTraveled, #greeting {
+  padding: 16px 16px 0 16px;
+  display: inline-block;
 }
 
 .function-element {

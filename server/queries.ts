@@ -18,7 +18,7 @@ export class Queries {
     }
 
     getPlace = (request: any, response: any) => {
-        const place_id = parseInt(request.params.place_id)
+        const place_id = parseInt(request.params.place_id);
         pool.query('SELECT * FROM world_cities where gid = $1;', [place_id], (error: any, results: any) => {
             if (error) {
                 throw error
@@ -38,6 +38,15 @@ export class Queries {
             });
     }
 
+    getCountryArea = (request: any, response: any) => {
+        pool.query(`SELECT ST_Area(country.geom) FROM (SELECT * FROM world_countries WHERE gid = ${request.params.country}) as country;`, (error: any, results: any) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).json(results.rows);
+        });
+    }
+
     getCitiesOfCountry = (request: any, response: any) => {
         pool.query(`SELECT gid, name FROM world_cities WHERE world_cities.country = '${request.params.country}';`, (error: any, results: any) => {
             if (error) {
@@ -48,7 +57,7 @@ export class Queries {
     }
 
     getPlaceCoord = (request: any, response: any) => {
-        const place_id = parseInt(request.params.place_id)
+        const place_id = parseInt(request.params.place_id);
         pool.query('SELECT ST_X(geom), ST_Y(geom) FROM world_cities where gid = $1;', [place_id], (error: any, results: any) => {
             if (error) {
                 throw error
@@ -58,7 +67,7 @@ export class Queries {
     }
 
     getBeen = (request: any, response: any) => {
-        const user_id = parseInt(request.params.user_id)
+        const user_id = parseInt(request.params.user_id);
         pool.query('SELECT place_id FROM been WHERE user_id = $1;', [user_id], (error: any, results: any) => {
             if (error) {
                 throw error

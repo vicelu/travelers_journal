@@ -4,6 +4,7 @@ import {MDCTextField} from '@material/textfield';
 import {MDCRipple} from '@material/ripple';
 import { DataService } from './lib/data.service';
 import { PlaceCoord, Place, BeenPlace, Country, CountryCount } from './lib/place.model';
+import { User } from './lib/user.model';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicGVyaWNha2Vrc2ljIiwiYSI6ImNqdzF1OW1jZjA2M3o0NW9oc2M3ZjlnemcifQ.1ne59J5h9DSP1COwAJnQ_A';
 const map = new mapboxgl.Map({
@@ -15,6 +16,7 @@ const map = new mapboxgl.Map({
 
 let markers: any[] = [];
 let beenPlacesLocalData: Place[] = [];
+let totalTravelDistance: number[] = [];
 let selectedPlaceId: any = 1;
 const USER_ID = 7;
 let USER_HOME_CITY_ID: number;
@@ -36,7 +38,26 @@ const getBeenPlaces = (user_id: number) => dataService.getBeenPlaces(user_id);
 
 const showBeenPlacesOnMap = async (user_id: number) => {
     beenPlacesLocalData = [];
+    totalTravelDistance = [];
+    let userHomeCityPlaceCoord: PlaceCoord;
     if (markers.length !== 0) { markers.forEach((marker) => { marker.remove(); }); }
+    dataService.getUser(USER_ID).then(async (result) => {
+        const user = await result;
+        writeGreeting(user);
+        USER_HOME_CITY_ID = user.homecityid;
+        getPlaceCoord(USER_HOME_CITY_ID).then(async (res) => {
+            userHomeCityPlaceCoord = await res;
+            getPlace(USER_HOME_CITY_ID).then(async (place) => {
+                const placeData: Place = await place;
+                const homeCityPopup = new mapboxgl.Popup({ offset: 25 }).setText(`Home city: ${placeData.name}, ${placeData.country}`);
+                const homeCityMarker = new mapboxgl.Marker({color: '#c24f4a'})
+                    .setLngLat([userHomeCityPlaceCoord.st_x, userHomeCityPlaceCoord.st_y])
+                    .setPopup(homeCityPopup)
+                    .addTo(map);
+                markers.push(homeCityMarker);
+            });
+        });
+    });
     
     getBeenPlaces(user_id).then(async (res) => {
         const beenPlaces: BeenPlace[] = await res;
@@ -45,15 +66,21 @@ const showBeenPlacesOnMap = async (user_id: number) => {
                 const placeData: Place = await result;
                 beenPlacesLocalData.push(placeData);
 
-                const popup = new mapboxgl.Popup({ offset: 25 }).setText(`${placeData.name}, ${placeData.country}`);
                 getPlaceCoord(placeData.gid).then(async (coordRes) => {
                     const coordiantes: PlaceCoord = await coordRes;
-                    const placeMarker = new mapboxgl.Marker()
-                    .setLngLat([coordiantes.st_x, coordiantes.st_y])
-                    .setPopup(popup)
-                    .addTo(map);
-                    markers.push(placeMarker);
-            });
+                    getDistance(userHomeCityPlaceCoord, coordiantes).then(async (d) => {
+                        const distance = await d;
+                        totalTravelDistance.push(Math.round(distance.st_distancesphere / 1000));
+                        const popup = new mapboxgl.Popup({ offset: 25 })
+                            .setText(`${placeData.name}, ${placeData.country},
+                            Distance from home city: ${Math.round(distance.st_distancesphere / 1000)} km`);
+                        const placeMarker = new mapboxgl.Marker({color: '#a1cacd'})
+                            .setLngLat([coordiantes.st_x, coordiantes.st_y])
+                            .setPopup(popup)
+                            .addTo(map);
+                        markers.push(placeMarker);
+                    });
+                });
             });
         });
     });
@@ -84,7 +111,29 @@ const getMostVisitedCountry = () => {
 const writeMostVisitedCountry = (data: Country) => {
     const el = document.getElementById('mostVisitedCountry');
     if (!!el) {
-        el.innerHTML = `${data.country}`;
+        el.innerHTML = `Most visited country: ${data.country}`;
+    }
+}
+
+const getTotalTravelDistance = () => {
+    let totalDistance = 0;
+    totalTravelDistance.forEach(distance => {
+        totalDistance += distance;
+    });
+    return totalDistance;
+}
+
+const writeTotalTravelDistance = (totalDistance: number) => {
+    const el = document.getElementById('totalDistanceTraveled');
+    if (!!el) {
+        el.innerHTML = `Total distance traveled: ${totalDistance}km`;
+    }
+}
+
+const writeGreeting = (user: User) => {
+    const el = document.getElementById('greeting');
+    if (!!el) {
+        el.innerHTML = `Hello ${user.name}, welcome to Traveler's Journal`;
     }
 }
 
@@ -93,6 +142,7 @@ const updateBeenPlaces = () => {
         showBeenPlacesOnMap(USER_ID);
         setTimeout(() => {
             writeMostVisitedCountry(getMostVisitedCountry());
+            writeTotalTravelDistance(getTotalTravelDistance());
         }, 1000);
 }
 
@@ -139,20 +189,26 @@ const addOption = (optionName: string, optionValue: number) =>
 <span class="mdc-list-item__text">${optionName}</span>
 </li>`
 
-dataService.getUser(USER_ID).then(async (result) => {
-    const user = await result;
-    USER_HOME_CITY_ID = user.homeCityId;
-    getPlaceCoord(USER_HOME_CITY_ID).then(async (result) => {
-        const userHomeCityPlaceCoord: PlaceCoord = await result;
-        getDistanceToBeenCities(userHomeCityPlaceCoord);
+const getUserHomeCityCoord = () => {
+    // let userHomeCityPlaceCoord: PlaceCoord;
+    dataService.getUser(USER_ID).then(async (result) => {
+        const user = await result;
+        USER_HOME_CITY_ID = user.homecityid;
+        getPlaceCoord(USER_HOME_CITY_ID).then(async (res) => {
+            return res;
+        });
     });
-})
+}
+console.log(getUserHomeCityCoord());
 
 const getDistanceToBeenCities = (userHomeCityPlaceCoord: PlaceCoord) => {
     beenPlacesLocalData.forEach((place: Place) => {
         getPlaceCoord(place.gid).then(async (result) => {
             const beenPlaceCoord: PlaceCoord = await result;
-            getDistance(userHomeCityPlaceCoord, beenPlaceCoord).then(console.log);
+            getDistance(userHomeCityPlaceCoord, beenPlaceCoord).then(async (d) => {
+                const distance = await d;
+                console.log(distance);
+            });
         });
     });
 }

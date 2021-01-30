@@ -1,5 +1,5 @@
 export interface User {
     name: string;
     id: number;
-    homeCityId: number
+    homecityid: number
 }
