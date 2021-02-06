@@ -21,6 +21,7 @@ app.get('/places', db.getPlaces);
 app.get('/coord/:place_id', db.getPlaceCoord);
 app.get('/place/:place_id', db.getPlace);
 app.get('/cities/:country', db.getCitiesOfCountry);
+app.get('/country/:place_id', db.getCountryOfCity);
 app.get('/users', db.getUsers);
 app.get('/user/:user_id', db.getUser);
 app.post('/distance', db.getDistance);
