@@ -52,7 +52,8 @@ export class App {
                         const coordiantes: PlaceCoord = await coordRes;
                         this.dataService.getDistance(this.userHomeCityPlaceCoord, coordiantes).then(async (d) => {
                             const distance = await d;
-                            this.totalTravelDistance.push(Math.round(distance.st_distancesphere / 1000));
+                            // User travels from home city to destination and back making a round trip
+                            this.totalTravelDistance.push((Math.round(distance.st_distancesphere / 1000)) * 2);
                             const popup = new mapboxgl.Popup({ offset: 25 })
                                 .setText(`${placeData.name}, ${placeData.country},
                             Distance from home city: ${Math.round(distance.st_distancesphere / 1000)} km`);
