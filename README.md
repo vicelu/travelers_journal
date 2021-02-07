@@ -16,6 +16,14 @@
 
 #### Install dependencies
 
+ - Globally install Node.js with the binary for your system from:
+   https://nodejs.org/en/download/
+   
+   
+ - Install Yarn (with npm which comes with Node.js)
+
+        npm install --global yarn
+
  - In _root/server_ AND in _root/src_ run the following command:
         
         yarn install
