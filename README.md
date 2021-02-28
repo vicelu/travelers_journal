@@ -40,4 +40,4 @@
 
         yarn serve
 
-### Voila, now you can access the app at _localhost:8080_
+### Voilaa, now you can access the app at _localhost:8080_
