@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d7377f61-d89e-421b-863b-375678e131f3" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
+  </component>
+  <component name="ProjectId" id="1niPJmaBC4GaxexdSZ4zbfsXzY3" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dump" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d7377f61-d89e-421b-863b-375678e131f3" name="Default Changelist" comment="" />
+      <created>1611869868796</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611869868796</updated>
+      <workItem from="1611869872215" duration="6224000" />
+      <workItem from="1611879494227" duration="131000" />
+      <workItem from="1611912737914" duration="15000" />
+      <workItem from="1612032694587" duration="7180000" />
+      <workItem from="1612176506934" duration="105000" />
+      <workItem from="1612614365421" duration="3029000" />
+      <workItem from="1612658346058" duration="541000" />
+      <workItem from="1612705326436" duration="2406000" />
+      <workItem from="1612772561568" duration="41000" />
+      <workItem from="1612970700645" duration="1543000" />
+      <workItem from="1613032887339" duration="56000" />
+    </task>
+    <task id="LOCAL-00001" summary="Added distance query and retrieving data between home and been cities, light css updates">
+      <created>1611879079740</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1611879079740</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added home city, user query and calculated distance to all visited cities, updated style">
+      <created>1612040216371</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1612040216371</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Wrapped up draft of app">
+      <created>1612615825315</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1612615825315</updated>
+    </task>
+    <task id="LOCAL-00004" summary="TSesque style - Polished index.ts">
+      <created>1612616634511</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1612616634511</updated>
+    </task>
+    <task id="LOCAL-00005" summary="User travel distance update to match &quot;home city to destination round trip&quot;">
+      <created>1612707094268</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1612707094268</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add db dump and update readme">
+      <created>1612709388612</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1612709388612</updated>
+    </task>
+    <task id="LOCAL-00007" summary="update readme">
+      <created>1612710032278</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1612710032278</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added distance query and retrieving data between home and been cities, light css updates" />
+    <MESSAGE value="Added home city, user query and calculated distance to all visited cities, updated style" />
+    <MESSAGE value="Wrapped up draft of app" />
+    <MESSAGE value="TSesque style - Polished index.ts" />
+    <MESSAGE value="User travel distance update to match &quot;home city to destination round trip&quot;" />
+    <MESSAGE value="Add db dump and update readme" />
+    <MESSAGE value="update readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme" />
+  </component>
+</project>
